@@ -13,35 +13,36 @@ function App() {
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
-  setMessage('');
+    e.preventDefault();
+    setLoading(true);
+    setMessage('');
 
-  try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbw6WoG-3VzGS7igOr3qVReT5FTgN8dlxzpDR0sTONUxdfD9nrtdvQags64YMTb9hJ7VUg/exec', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
+    try {
+      // Add a timestamp to bypass cache
+      const timestamp = new Date().getTime();
+      const url = `https://script.google.com/macros/s/AKfycby-h3xcGus4-CIPuJ0iIHVb1O4ZS-1jJCN9Je49RkttWOzG5-oVHGrVR3Yhy1b_Yg1VVw/exec?t=${timestamp}`;
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+        mode: 'no-cors', // Handle CORS
+      });
 
-    const data = await response.json();
-
-    if (data.success) {
+      // Since we're using no-cors, we can't read the response
+      // So we'll assume success if we don't get an error
       setMessageType('success');
-      setMessage(data.message);
+      setMessage('Thank you for joining the waitlist!');
       setEmail('');
-    } else {
+    } catch (error) {
       setMessageType('error');
-      setMessage(data.error || 'Something went wrong. Please try again.');
+      setMessage('Network error. Please try again later.');
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    setMessageType('error');
-    setMessage('Network error. Please check your connection and try again.');
-  } finally {
-    setLoading(false);
-  }
 };
 
   const shareUrl = encodeURIComponent(window.location.href);
