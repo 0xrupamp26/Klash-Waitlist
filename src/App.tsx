@@ -18,7 +18,6 @@ function App() {
     setMessage('');
 
     try {
-      // Add a timestamp to bypass cache
       const timestamp = new Date().getTime();
       const url = `https://script.google.com/macros/s/AKfycby-h3xcGus4-CIPuJ0iIHVb1O4ZS-1jJCN9Je49RkttWOzG5-oVHGrVR3Yhy1b_Yg1VVw/exec?t=${timestamp}`;
       
@@ -28,22 +27,25 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email }),
-        mode: 'no-cors', // Handle CORS
       });
 
-      // Since we're using no-cors, we can't read the response
-      // So we'll assume success if we don't get an error
-      setMessageType('success');
-      setMessage('Thank you for joining the waitlist!');
-      setEmail('');
+      const data = await response.json();
+
+      if (data.success) {
+        setMessageType('success');
+        setMessage(data.message);
+        setEmail('');
+      } else {
+        setMessageType('error');
+        setMessage(data.error || 'Something went wrong. Please try again.');
+      }
     } catch (error) {
       setMessageType('error');
-      setMessage('Network error. Please try again later.');
-      console.error('Error:', error);
+      setMessage('Network error. Please check your connection and try again.');
     } finally {
       setLoading(false);
     }
-};
+  };
 
   const shareUrl = encodeURIComponent(window.location.href);
   const shareText = encodeURIComponent('Join me on the Klash waitlist! Put Your Money Where The Mouth Is.');
@@ -70,10 +72,14 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FF3333] flex flex-col items-center justify-center px-4 py-12 overflow-hidden relative">
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-black rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-black rounded-full blur-3xl animate-pulse delay-1000"></div>
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 overflow-hidden relative bg-[#FF3A3A]">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="/image.png" 
+          alt="Background" 
+          className="w-full h-full object-cover mix-blend-overlay"
+        />
       </div>
 
       <div
@@ -81,37 +87,53 @@ function App() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
-        <div className="text-center mb-12 space-y-8">
-          <div className="flex justify-center mb-8 animate-fade-in">
+        <div className="text-center mb-12 space-y-6">
+          <div className="flex justify-center mb-6 animate-fade-in">
             <img
               src="/Klash Logo.png"
               alt="Klash Logo"
-              className="h-32 w-auto md:h-40 transition-transform duration-500 hover:scale-105"
+              className="h-24 w-auto md:h-32 transition-transform duration-500 hover:scale-105"
               style={{ mixBlendMode: 'multiply' }}
             />
           </div>
 
           <h1
-            className="text-4xl md:text-6xl font-black text-black mb-6 tracking-tight animate-slide-in"
-            style={{ animationDelay: '0.2s' }}
+            className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 tracking-tight animate-slide-in text-center w-full px-4"
+            style={{ animationDelay: '0.2s', lineHeight: '1.2' }}
           >
-            Put Your Money Where<br />The Mouth Is
+            Put Your Money Where The Mouth Is
           </h1>
 
+          <div 
+            className="flex items-center justify-center gap-2 mb-6 animate-fade-in"
+            style={{ animationDelay: '0.3s' }}
+          >
+            <span className="text-white/60 text-sm font-medium">Powered by</span>
+            <a 
+              
+            >
+              <img 
+                src="/aptos-logo.svg" 
+                alt="Aptos" 
+                className="h-5 w-5 transition-transform group-hover:scale-110"
+              />
+              
+            </a>
+          </div>
+
           <p
-            className="text-xl md:text-2xl text-black/90 font-semibold max-w-xl mx-auto leading-relaxed animate-slide-in"
+            className="text-xl md:text-2xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed animate-slide-in"
             style={{ animationDelay: '0.4s' }}
           >
-            The global social prediction platform where opinions meet outcomes.
-            Make predictions, back them up, and prove you were right.
+            A sentiment-driven Web3 prediction market where users bet on real-time Twitter controversies, on-chain. powered by Aptos.
           </p>
         </div>
 
         <div
-          className="bg-black/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl border-2 border-black/20 animate-slide-in"
+          className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl border-2 border-white/20 animate-slide-in"
           style={{ animationDelay: '0.6s' }}
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-black mb-6 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
             Join The Waitlist
           </h2>
 
@@ -123,15 +145,15 @@ function App() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
-                className="flex-1 px-6 py-4 rounded-xl bg-white text-black placeholder-black/50
-                         border-2 border-black/20 focus:border-black focus:outline-none
+                className="flex-1 px-6 py-4 rounded-xl bg-white/90 text-black placeholder-black/50
+                         border-2 border-white/30 focus:border-white focus:outline-none
                          text-lg font-medium transition-all duration-300 transform focus:scale-105"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="px-8 py-4 bg-black text-white font-bold rounded-xl
-                         hover:bg-black/90 transition-all duration-300
+                className="px-8 py-4 bg-yellow-400 text-black font-bold rounded-xl
+                         hover:bg-yellow-300 transition-all duration-300
                          disabled:opacity-50 disabled:cursor-not-allowed
                          transform hover:scale-105 active:scale-95 shadow-lg
                          flex items-center justify-center gap-2 text-lg"
@@ -151,7 +173,7 @@ function App() {
               <div
                 className={`p-4 rounded-xl text-center font-semibold animate-fade-in ${
                   messageType === 'success'
-                    ? 'bg-black/20 text-black'
+                    ? 'bg-white/20 text-white'
                     : 'bg-white/90 text-[#FF3333]'
                 }`}
               >
@@ -161,7 +183,7 @@ function App() {
           </form>
 
           <div className="mt-8 pt-8 border-t-2 border-black/20">
-            <p className="text-center text-black/80 text-sm mb-6 font-medium">
+            <p className="text-center text-white/80 text-sm mb-6 font-medium">
               Share with your network
             </p>
             <div className="flex justify-center gap-4">
@@ -171,20 +193,20 @@ function App() {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-4 bg-black/20 rounded-xl ${social.color}
+                  className={`p-4 bg-white/20 rounded-xl hover:bg-white/30
                            transition-all duration-300 transform hover:scale-110
                            active:scale-95 shadow-lg animate-fade-in`}
                   style={{ animationDelay: `${0.8 + index * 0.1}s` }}
                   aria-label={`Share on ${social.name}`}
                 >
-                  <social.icon className="w-6 h-6 text-black" />
+                  <social.icon className="w-6 h-6 text-white" />
                 </a>
               ))}
             </div>
           </div>
 
           <div className="mt-8 text-center">
-            <p className="text-black/70 text-sm font-medium leading-relaxed">
+            <p className="text-white/80 text-sm font-medium leading-relaxed mb-6">
               Your email is safe with us. We don't share your information with anyone.
               <br />
               By joining, you agree to receive updates about Klash.
@@ -199,50 +221,30 @@ function App() {
                 href="https://x.com/klashdotmarket"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-black/20 rounded-xl hover:bg-black/40 transition-all duration-300 transform hover:scale-110 active:scale-95"
-                aria-label="Follow us on X"
+                className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-300"
               >
-                <Twitter className="w-5 h-5 text-black" />
-              </a>
-              <a
-                href="https://www.instagram.com/klash.market"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-black/20 rounded-xl hover:bg-black/40 transition-all duration-300 transform hover:scale-110 active:scale-95"
-                aria-label="Follow us on Instagram"
-              >
-                <Instagram className="w-5 h-5 text-black" />
-              </a>
-              <a
-                href="https://www.youtube.com/@klash.market"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-black/20 rounded-xl hover:bg-black/40 transition-all duration-300 transform hover:scale-110 active:scale-95"
-                aria-label="Subscribe on YouTube"
-              >
-                <Youtube className="w-5 h-5 text-black" />
+                <Twitter className="w-5 h-5 text-white" />
               </a>
               <a
                 href="https://t.me/klashdotmarket"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-black/20 rounded-xl hover:bg-black/40 transition-all duration-300 transform hover:scale-110 active:scale-95"
-                aria-label="Join us on Telegram"
+                className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-300"
               >
-                <Send className="w-5 h-5 text-black" />
+                <Send className="w-5 h-5 text-white" />
               </a>
               <a
-                href="mailto:klash.market@gmail.com"
-                className="p-3 bg-black/20 rounded-xl hover:bg-black/40 transition-all duration-300 transform hover:scale-110 active:scale-95"
-                aria-label="Email us"
+                href="mailto:hello@klash.market"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-300"
               >
-                <Mail className="w-5 h-5 text-black" />
+                <Mail className="w-5 h-5 text-white" />
               </a>
             </div>
-          </div>
-
-          <div className="text-center text-black/60 text-sm">
-            <p className="font-medium">© 2025 Klash. All rights reserved.</p>
+            <p className="text-white/70 text-sm">
+              &copy; {new Date().getFullYear()} Klash. All rights reserved.
+            </p>
           </div>
         </div>
       </div>
