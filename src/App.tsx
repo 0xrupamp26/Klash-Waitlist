@@ -13,40 +13,36 @@ function App() {
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage('');
+  e.preventDefault();
+  setLoading(true);
+  setMessage('');
 
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-to-sheets`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbw6WoG-3VzGS7igOr3qVReT5FTgN8dlxzpDR0sTONUxdfD9nrtdvQags64YMTb9hJ7VUg/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
 
-      const data = await response.json();
+    const data = await response.json();
 
-      if (response.ok) {
-        setMessageType('success');
-        setMessage(data.message || 'Successfully joined the waitlist!');
-        setEmail('');
-      } else {
-        setMessageType('error');
-        setMessage(data.error || 'Something went wrong. Please try again.');
-      }
-    } catch (error) {
+    if (data.success) {
+      setMessageType('success');
+      setMessage(data.message);
+      setEmail('');
+    } else {
       setMessageType('error');
-      setMessage('Network error. Please check your connection and try again.');
-    } finally {
-      setLoading(false);
+      setMessage(data.error || 'Something went wrong. Please try again.');
     }
-  };
+  } catch (error) {
+    setMessageType('error');
+    setMessage('Network error. Please check your connection and try again.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const shareUrl = encodeURIComponent(window.location.href);
   const shareText = encodeURIComponent('Join me on the Klash waitlist! Put Your Money Where The Mouth Is.');
