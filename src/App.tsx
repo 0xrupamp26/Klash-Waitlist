@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Send, Twitter, Linkedin, Instagram, Youtube, Mail } from 'lucide-react';
+import { Send, Twitter, Linkedin, Mail } from 'lucide-react';
 
 function App() {
   const [email, setEmail] = useState('');
@@ -105,7 +105,7 @@ function App() {
           </h1>
 
           <div 
-            className="flex items-center justify-center gap-2 mb-6 animate-fade-in"
+            className="w-full max-w-4xl mx-auto px-4 flex items-center justify-center gap-2 mb-6 animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
             <span className="text-white/60 text-sm font-medium">Powered by</span>
@@ -115,9 +115,9 @@ function App() {
               <img 
                 src="/aptos-logo.svg" 
                 alt="Aptos" 
-                className="h-5 w-5 transition-transform group-hover:scale-110"
+                className="h-6 w-auto transition-transform group-hover:scale-105"
               />
-              
+         
             </a>
           </div>
 
@@ -234,7 +234,7 @@ function App() {
                 <Send className="w-5 h-5 text-white" />
               </a>
               <a
-                href="mailto:hello@klash.market"
+                href="mailto:support@klash.live "
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-300"
@@ -243,7 +243,7 @@ function App() {
               </a>
             </div>
             <p className="text-white/70 text-sm">
-              &copy; {new Date().getFullYear()} Klash. All rights reserved.
+              &copy; {new Date().getFullYear()} Klash.Market | All rights reserved.
             </p>
           </div>
         </div>
