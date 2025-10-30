@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Send, Twitter, Linkedin, Mail } from 'lucide-react';
 
+// Load Edo font
+const link = document.createElement('link');
+link.href = 'https://fonts.cdnfonts.com/css/edo';
+link.rel = 'stylesheet';
+document.head.appendChild(link);
+
 function App() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -110,29 +116,24 @@ function App() {
             Where The Mouth Is!
           </h1>
 
-          <div 
-            className="w-full max-w-4xl mx-auto px-4 flex items-center justify-center gap-2 mb-6 animate-fade-in"
-            style={{ animationDelay: '0.3s' }}
-          >
-            <span className="text-white/60 text-sm font-medium">Powered by</span>
-            <a 
-              
-            >
-              <img 
-                src="/aptos-logo.svg" 
-                alt="Aptos" 
-                className="h-6 w-auto transition-transform group-hover:scale-105"
-              />
          
-            </a>
-          </div>
 
-          <p
-            className="text-xl md:text-2xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed animate-slide-in"
-            style={{ animationDelay: '0.4s' }}
-          >
-            A sentiment-driven Web3 prediction market where users bet on real-time Twitter controversies, on-chain. powered by Aptos.
-          </p>
+          <div className="text-center">
+            <p 
+              className="text-xl md:text-2xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed animate-slide-in"
+              style={{ animationDelay: '0.4s' }}
+            >
+              A sentiment-driven Web3 prediction market where users bet on real-time Twitter controversies, on-chain
+            </p>
+            <div className="mt-4 flex justify-center animate-slide-in" style={{ animationDelay: '0.5s' }}>
+              <p className="text-xl md:text-2xl text-white/90 font-medium mr-2">powered by</p>
+              <img 
+                src="/Aptos_Primary_WHT.png" 
+                alt="Aptos" 
+                className="h-6 w-auto transition-transform hover:scale-105"
+              />
+            </div>
+          </div>
         </div>
 
         <div
