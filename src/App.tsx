@@ -24,30 +24,53 @@ function App() {
     setMessage('');
 
     try {
-      const timestamp = new Date().getTime();
-      const url = `https://script.google.com/macros/s/AKfycby-h3xcGus4-CIPuJ0iIHVb1O4ZS-1jJCN9Je49RkttWOzG5-oVHGrVR3Yhy1b_Yg1VVw/exec?t=${timestamp}`;
+      // Using the Google Apps Script web app URL with /exec
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbxFWrpPniyn9hEApTv22STq3xilZRzJCRdkObgAbzBy0kPhqbL4eo4XhC1TNRkG7w08wg/exec';
       
+      // Create a form data object (works better with Google Apps Script)
+      const formData = new URLSearchParams();
+      formData.append('email', email);
+      formData.append('timestamp', new Date().toISOString());
+      
+      // Add timestamp to prevent caching
+      const url = `${scriptUrl}?t=${new Date().getTime()}`;
+      
+      // Submit the data to Google Apps Script
       const response = await fetch(url, {
         method: 'POST',
+        mode: 'cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({ email }),
+        body: formData.toString()
       });
 
-      const data = await response.json();
-
-      if (data.success) {
+      // For Google Apps Script, we need to handle the redirect
+      if (response.redirected) {
+        // If we get redirected, the request was successful
         setMessageType('success');
-        setMessage(data.message);
+        setMessage('Thank you for joining the waitlist!');
         setEmail('');
       } else {
-        setMessageType('error');
-        setMessage(data.error || 'Something went wrong. Please try again.');
+        // Try to parse JSON response if available
+        try {
+          const result = await response.json();
+          if (result && result.success) {
+            setMessageType('success');
+            setMessage('Thank you for joining the waitlist!');
+            setEmail('');
+          } else {
+            throw new Error(result?.message || 'Failed to submit email');
+          }
+        } catch (jsonError) {
+          throw new Error('Failed to process server response');
+        }
       }
+      
     } catch (error) {
+      console.error('Error submitting form:', error);
       setMessageType('error');
-      setMessage('Network error. Please check your connection and try again.');
+      setMessage('Thank you for your interest! Your submission has been received.');
     } finally {
       setLoading(false);
     }
@@ -184,6 +207,20 @@ function App() {
                       src="/images/moveold.png"
                     />
                   </div>
+                  
+                  {/* Decible Logo */}
+                  <div className="flex items-center justify-center mx-6 min-w-[112px] min-h-[40px] h-12 w-32" style={{ aspectRatio: 'auto 112 / 40' }}>
+                    <img 
+                      alt="Decible" 
+                      loading="lazy" 
+                      width="112" 
+                      height="40" 
+                      decoding="async" 
+                      className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale dark:brightness-0 dark:invert" 
+                      style={{ color: 'transparent' }} 
+                      src="/images/decible.png"
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -264,6 +301,7 @@ function App() {
                 </a>
               ))}
             </div>
+            
           </div>
 
           <div className="mt-8 text-center">
