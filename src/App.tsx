@@ -99,9 +99,15 @@ function App() {
 
           <h1
             className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 tracking-tight animate-slide-in text-center w-full px-4"
-            style={{ animationDelay: '0.2s', lineHeight: '1.2' }}
+            style={{
+              animationDelay: '0.2s',
+              lineHeight: '1.2',
+              fontFamily: "'Edo', sans-serif",
+              letterSpacing: '1px'
+            }}
           >
-            Put Your Money Where The Mouth Is
+            Put Your Money<br />
+            Where The Mouth Is!
           </h1>
 
           <div 
@@ -184,7 +190,7 @@ function App() {
 
           <div className="mt-8 pt-8 border-t-2 border-black/20">
             <p className="text-center text-white/80 text-sm mb-6 font-medium">
-              Share with your network
+              Share with your network & Let's F****** Move!
             </p>
             <div className="flex justify-center gap-4">
               {socialLinks.map((social, index) => (
