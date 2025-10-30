@@ -136,6 +136,60 @@ function App() {
           </div>
         </div>
 
+        {/* Trusted Partners Section */}
+        <div className="container mx-auto px-4 py-12 md:px-8">
+          <h3 className="text-center text-sm font-semibold text-white/70">TRUSTED BY LEADING COMMUNITIES</h3>
+          <div className="relative mt-6">
+            <div className="group flex overflow-hidden p-2 [--gap:1rem] [gap:var(--gap)] flex-row max-w-full [--duration:40s]">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row">
+                  {/* Aptos Logo */}
+                  <div className="flex items-center justify-center mx-6 min-w-[112px] min-h-[40px] h-12 w-32" style={{ aspectRatio: 'auto 112 / 40' }}>
+                    <img 
+                      alt="Aptos" 
+                      loading="lazy" 
+                      width="112" 
+                      height="40" 
+                      decoding="async" 
+                      className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale dark:brightness-0 dark:invert" 
+                      style={{ color: 'transparent' }} 
+                      src="/images/Aptos_Primary_WHT.png"
+                    />
+                  </div>
+                  
+                  {/* RiseIn Logo */}
+                  <div className="flex items-center justify-center mx-6 min-w-[112px] min-h-[40px] h-12 w-32" style={{ aspectRatio: 'auto 112 / 40' }}>
+                    <img 
+                      alt="RiseIn" 
+                      loading="lazy" 
+                      width="112" 
+                      height="40" 
+                      decoding="async" 
+                      className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale dark:brightness-0 dark:invert" 
+                      style={{ color: 'transparent' }} 
+                      src="/images/Pi7_risein-logo3.png"
+                    />
+                  </div>
+                  
+                  {/* MoveOld Logo */}
+                  <div className="flex items-center justify-center mx-6 min-w-[112px] min-h-[40px] h-12 w-32" style={{ aspectRatio: 'auto 112 / 40' }}>
+                    <img 
+                      alt="MoveOld" 
+                      loading="lazy" 
+                      width="112" 
+                      height="40" 
+                      decoding="async" 
+                      className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale dark:brightness-0 dark:invert" 
+                      style={{ color: 'transparent' }} 
+                      src="/images/moveold.png"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div
           className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl border-2 border-white/20 animate-slide-in"
           style={{ animationDelay: '0.6s' }}
