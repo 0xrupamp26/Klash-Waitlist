@@ -148,14 +148,7 @@ function App() {
             >
               A sentiment-driven Web3 prediction market where users bet on real-time Twitter controversies, on-chain
             </p>
-            <div className="mt-4 flex justify-center animate-slide-in" style={{ animationDelay: '0.5s' }}>
-              <p className="text-xl md:text-2xl text-white/90 font-medium mr-2">powered by</p>
-              <img 
-                src="/Aptos_Primary_WHT.png" 
-                alt="Aptos" 
-                className="h-6 w-auto transition-transform hover:scale-105"
-              />
-            </div>
+      
           </div>
         </div>
 
