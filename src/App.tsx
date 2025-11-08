@@ -146,7 +146,7 @@ function App() {
               className="text-xl md:text-2xl text-white/90 font-medium max-w-2xl mx-auto leading-relaxed animate-slide-in"
               style={{ animationDelay: '0.4s' }}
             >
-              A sentiment-driven Web3 prediction market where users bet on real-time Twitter controversies, on-chain
+              A sentiment-driven Web3 prediction market where users bet on real-time Twitter controversies, on-chain!
             </p>
       
           </div>
