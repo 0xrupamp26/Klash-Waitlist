@@ -41,13 +41,8 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error'>('success');
-  const [isVisible, setIsVisible] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-
-  useEffect(() => {
-    setTimeout(() => setIsVisible(true), 100);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -250,56 +245,52 @@ function App() {
         {/* Trusted Partners Section */}
         <div className="container mx-auto px-4 py-12 md:px-8 relative z-10 w-full">
           <h3 className="text-center text-sm font-semibold text-white/70">TRUSTED BY LEADING COMMUNITIES</h3>
-          <div className="relative mt-6">
-            <div className="group flex overflow-hidden p-2 [--gap:1rem] [gap:var(--gap)] flex-row max-w-full [--duration:40s]">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex shrink-0 justify-around [gap:var(--gap)] animate-marquee flex-row">
-                  <div className="flex items-center justify-center mx-6 min-w-[112px] min-h-[40px] h-12 w-32">
-                    <img
-                      alt="Aptos"
-                      loading="lazy"
-                      width="112"
-                      height="40"
-                      decoding="async"
-                      className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale"
-                      src="/images/Aptos_Primary_WHT.png"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center mx-6 min-w-[112px] min-h-[40px] h-12 w-32">
-                    <img
-                      alt="RiseIn"
-                      loading="lazy"
-                      width="112"
-                      height="40"
-                      decoding="async"
-                      className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale"
-                      src="/images/Pi7_risein-logo3.png"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center mx-6 min-w-[112px] min-h-[40px] h-12 w-32">
-                    <img
-                      alt="MoveOld"
-                      loading="lazy"
-                      width="112"
-                      height="40"
-                      decoding="async"
-                      className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale"
-                      src="/images/moveold.png"
-                    />
-                  </div>
-                  <div className="flex items-center justify-center mx-6 min-w-[112px] min-h-[40px] h-12 w-32">
-                    <img
-                      alt="Decible"
-                      loading="lazy"
-                      width="112"
-                      height="40"
-                      decoding="async"
-                      className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale"
-                      src="/images/decible.png"
-                    />
-                  </div>
-                </div>
-              ))}
+          <div className="relative mt-6 overflow-hidden flex justify-center items-center w-full">
+            <div className="flex gap-8 animate-marquee w-fit">
+              <div className="flex items-center justify-center min-w-[112px] min-h-[40px] h-12 w-32 shrink-0">
+                <img
+                  alt="Aptos"
+                  loading="lazy"
+                  width="112"
+                  height="40"
+                  decoding="async"
+                  className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale hover:opacity-50 transition-opacity"
+                  src="/images/Aptos_Primary_WHT.png"
+                />
+              </div>
+              <div className="flex items-center justify-center min-w-[112px] min-h-[40px] h-12 w-32 shrink-0">
+                <img
+                  alt="RiseIn"
+                  loading="lazy"
+                  width="112"
+                  height="40"
+                  decoding="async"
+                  className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale hover:opacity-50 transition-opacity"
+                  src="/images/Pi7_risein-logo3.png"
+                />
+              </div>
+              <div className="flex items-center justify-center min-w-[112px] min-h-[40px] h-12 w-32 shrink-0">
+                <img
+                  alt="MoveOld"
+                  loading="lazy"
+                  width="112"
+                  height="40"
+                  decoding="async"
+                  className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale hover:opacity-50 transition-opacity"
+                  src="/images/moveold.png"
+                />
+              </div>
+              <div className="flex items-center justify-center min-w-[112px] min-h-[40px] h-12 w-32 shrink-0">
+                <img
+                  alt="Decible"
+                  loading="lazy"
+                  width="112"
+                  height="40"
+                  decoding="async"
+                  className="object-contain max-h-10 max-w-[112px] opacity-30 grayscale hover:opacity-50 transition-opacity"
+                  src="/images/decible.png"
+                />
+              </div>
             </div>
           </div>
         </div>

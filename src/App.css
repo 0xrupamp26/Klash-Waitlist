@@ -65,6 +65,15 @@ body {
   }
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.8s ease-out forwards;
 }
@@ -87,6 +96,10 @@ body {
 
 .animate-slide-in-right {
   animation: slideInFromRight 0.8s ease-out forwards;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
 }
 
 /* Custom scrollbar */
