@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Send, Twitter, Linkedin, Mail, Menu, X } from 'lucide-react';
+import CustomCursor from './components/CustomCursor';
 
 // Load Edo font
 const link = document.createElement('link');
@@ -146,14 +147,17 @@ function App() {
   const waitlistRef = useIntersectionObserver();
 
   return (
-    <div className="w-full overflow-x-hidden" style={{ background: 'linear-gradient(135deg, #FF3A3A 0%, #1a1a1a 100%)' }}>
+    <>
+      <CustomCursor />
+      <div className="w-full overflow-x-hidden relative" style={{ background: 'radial-gradient(ellipse at center, #FF3A3A 0%, #1a1a1a 50%, #000 100%)', minHeight: '100vh' }}>
+      
       {/* Sticky Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-white/10" style={{ background: 'linear-gradient(135deg, #FF3A3A/95 0%, #1a1a1a/95 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300"
               onClick={() => scrollToSection('home')}>
-              <img src="/Klash Logo.png" alt="Klash" className="h-8 w-auto" style={{ mixBlendMode: 'multiply' }} />
+              <img src="/logo.png" alt="Klash" className="h-8 w-auto" style={{ mixBlendMode: 'multiply' }} />
             </div>
 
             {/* Desktop Menu */}
@@ -203,22 +207,15 @@ function App() {
       <section
         id="home"
         ref={heroRef.ref}
-        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative overflow-hidden transition-all duration-1000 ${
+        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative overflow-hidden transition-all duration-1000 z-10 ${
           heroRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/image.png"
-            alt="Background"
-            className="w-full h-full object-cover mix-blend-overlay"
-          />
-        </div>
 
         <div className="max-w-2xl relative z-10 text-center space-y-6">
           <div className="flex justify-center mb-6">
             <img
-              src="/Klash Logo.png"
+              src="/logo.png"
               alt="Klash Logo"
               className="h-24 w-auto md:h-32 transition-transform duration-500 hover:scale-110"
               style={{ mixBlendMode: 'multiply' }}
@@ -312,7 +309,7 @@ function App() {
       <section
         id="about"
         ref={aboutRef.ref}
-        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative transition-all duration-1000 ${
+        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative transition-all duration-1000 z-10 ${
           aboutRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -361,7 +358,7 @@ function App() {
       <section
         id="pitch"
         ref={pitchRef.ref}
-        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative transition-all duration-1000 ${
+        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative transition-all duration-1000 z-10 ${
           pitchRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -397,7 +394,7 @@ function App() {
       <section
         id="team"
         ref={teamRef.ref}
-        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative transition-all duration-1000 ${
+        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative transition-all duration-1000 z-10 ${
           teamRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -428,17 +425,10 @@ function App() {
       <section
         id="waitlist"
         ref={waitlistRef.ref}
-        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative transition-all duration-1000 ${
+        className={`min-h-screen flex flex-col items-center justify-center px-4 py-24 relative transition-all duration-1000 z-10 ${
           waitlistRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
-        <div className="absolute inset-0 -z-10">
-          <img
-            src="/image.png"
-            alt="Background"
-            className="w-full h-full object-cover mix-blend-overlay opacity-30"
-          />
-        </div>
 
         <div className="max-w-2xl relative z-10 w-full">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl border-2 border-white/20">
@@ -560,6 +550,7 @@ function App() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
 
